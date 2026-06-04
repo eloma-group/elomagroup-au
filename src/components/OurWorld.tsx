@@ -130,14 +130,14 @@ export function OurWorld() {
   })
 
   // Opening manifesto — holds, then drifts up & fades to make room for the folder
-  const introOpacity = useTransform(scrollYProgress, [0, 0.3, 0.44], [1, 1, 0])
-  const introY       = useTransform(scrollYProgress, [0, 0.44], [0, reduce ? 0 : -130])
-  const introScale   = useTransform(scrollYProgress, [0, 0.44], [1, reduce ? 1 : 0.92])
+  const introOpacity = useTransform(scrollYProgress, [0, 0.32, 0.46], [1, 1, 0])
+  const introY       = useTransform(scrollYProgress, [0, 0.46], [0, reduce ? 0 : -130])
+  const introScale   = useTransform(scrollYProgress, [0, 0.46], [1, reduce ? 1 : 0.92])
 
   // Folder — rises & fades in as the manifesto clears, then holds on display
-  const folderOpacity = useTransform(scrollYProgress, [0.4, 0.6], [0, 1])
-  const folderY       = useTransform(scrollYProgress, [0.4, 0.74], [reduce ? 0 : 70, 0])
-  const folderScale   = useTransform(scrollYProgress, [0.4, 0.74], [reduce ? 1 : 0.86, 1])
+  const folderOpacity = useTransform(scrollYProgress, [0.42, 0.62], [0, 1])
+  const folderY       = useTransform(scrollYProgress, [0.42, 0.76], [reduce ? 0 : 70, 0])
+  const folderScale   = useTransform(scrollYProgress, [0.42, 0.76], [reduce ? 1 : 0.86, 1])
   const folderPointer = useTransform(folderOpacity, (o) => (o > 0.5 ? 'auto' : 'none'))
 
   // Scroll cue
@@ -214,11 +214,14 @@ export function OurWorld() {
         .ow-root {
           background: linear-gradient(180deg, #FBFBF9 0%, #EEF3F0 50%, #FBFBF9 100%);
           position: relative;
-          overflow: hidden;
+          /* NO overflow:hidden here — it would break the sticky pin below.
+             Horizontal bleed from the floating shapes is clipped by .ow-sticky. */
+          overflow-x: clip;
         }
 
-        /* Stage gives the manifesto + folder reveal room to breathe */
-        .ow-stage  { height: 170vh; position: relative; }
+        /* Stage gives the manifesto + folder reveal room to breathe.
+           The sticky inner pins for (stage − 100vh) of scroll. */
+        .ow-stage  { height: 200vh; position: relative; }
         .ow-sticky {
           position: sticky; top: 0;
           height: 100vh;
@@ -420,7 +423,7 @@ export function OurWorld() {
         }
 
         @media (max-width: 680px) {
-          .ow-stage { height: 150vh; }
+          .ow-stage { height: 190vh; }
           .ow-cue   { display: none; }
           .ow-folder { width: clamp(240px, 76vw, 380px); height: clamp(200px, 60vw, 300px); }
           .ow-folder-eyebrow { font-size: 15px; }
