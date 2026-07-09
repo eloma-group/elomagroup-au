@@ -31,14 +31,17 @@ export function EgHero() {
           z-index: 0; pointer-events: none;
           transform: translateZ(0); backface-visibility: hidden;
           will-change: transform;
+          /* subtle clarity boost so the footage reads crisp and vivid */
+          filter: contrast(1.07) saturate(1.1) brightness(1.03);
+          image-rendering: -webkit-optimize-contrast;
         }
         /* legibility scrim - darkest on the left where the copy sits, with a
            soft top (under the header) and bottom (into the next section) fade */
         .eg-hero-scrim {
           position: absolute; inset: 0; z-index: 1; pointer-events: none;
           background:
-            linear-gradient(90deg, rgba(7,15,25,0.86) 0%, rgba(7,15,25,0.60) 36%, rgba(7,15,25,0.16) 66%, rgba(7,15,25,0.34) 100%),
-            linear-gradient(180deg, rgba(7,15,25,0.55) 0%, rgba(7,15,25,0) 26%, rgba(7,15,25,0) 58%, rgba(7,15,25,0.62) 100%);
+            linear-gradient(90deg, rgba(7,15,25,0.74) 0%, rgba(7,15,25,0.48) 36%, rgba(7,15,25,0.08) 66%, rgba(7,15,25,0.26) 100%),
+            linear-gradient(180deg, rgba(7,15,25,0.45) 0%, rgba(7,15,25,0) 26%, rgba(7,15,25,0) 58%, rgba(7,15,25,0.52) 100%);
         }
         .eg-hero-inner {
           position: relative; z-index: 2;
@@ -105,7 +108,7 @@ export function EgHero() {
           .eg-hero { min-height: 88svh; padding-top: clamp(120px, 20vh, 200px); }
           .eg-hero-p { max-width: 100%; }
           .eg-hero-scrim { background:
-            linear-gradient(180deg, rgba(7,15,25,0.6) 0%, rgba(7,15,25,0.25) 30%, rgba(7,15,25,0.3) 60%, rgba(7,15,25,0.75) 100%); }
+            linear-gradient(180deg, rgba(7,15,25,0.5) 0%, rgba(7,15,25,0.16) 30%, rgba(7,15,25,0.2) 60%, rgba(7,15,25,0.66) 100%); }
         }
         @media (min-width: 1920px) {
           .eg-hero-rule { width: 440px; margin: 40px 0; }
@@ -134,9 +137,6 @@ export function EgHero() {
           disablePictureInPicture
           aria-hidden
         >
-          {/* optimized sources first (~9MB) - webm for Chrome/FF, mp4 fallback.
-              The old 77MB "hero video.mp4" was the cause of the late playback. */}
-          <source src="/images/hero-bg.webm" type="video/webm" />
           <source src="/images/hero-bg.mp4" type="video/mp4" />
         </video>
       )}
